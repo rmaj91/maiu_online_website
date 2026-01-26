@@ -1,13 +1,1074 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>maiu_online_website</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Maiu Online - MMORPG Adventure</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <meta name="description"
+        content="A 3D top-down indie MMORPG with thrilling battles, immersive worlds, and a vibrant community, coming soon!">
+    <meta name="keywords" content="MMORPG, MMO, browser, Maiu Online, online, RPG, action, multiplayer, indie, fantasy, adventure">
+    <meta name="author" content="Maiu Online Development Team">
+
+</head>
+<style>
+    @font-face {
+        font-family: 'WinterLemon';
+        src: url('/winter-lemon.ttf') format('truetype');
+    }
+
+    [touch-action="none"]{ -ms-touch-action: none; touch-action: none; }
+    [touch-action="auto"]{ -ms-touch-action: auto; touch-action: auto; }
+    [touch-action~="pan-x"]{ -ms-touch-action: pan-x; touch-action: pan-x; }
+    [touch-action~="pan-y"]{ -ms-touch-action: pan-y; touch-action: pan-y; }
+    [touch-action~="pan-up"]{ -ms-touch-action: pan-up; touch-action: pan-up; }
+    [touch-action~="pan-down"]{ -ms-touch-action: pan-down; touch-action: pan-down; }
+    [touch-action~="pan-left"]{ -ms-touch-action: pan-left; touch-action: pan-left; }
+    [touch-action~="pan-right"]{ -ms-touch-action: pan-right; touch-action: pan-right; }
+
+    html,
+    body {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+
+        background-image: url('/main_page.jpg');
+        /* Replace with your image URL */
+        background-size: cover;
+        /* Adjusts the image to cover the entire page */
+        background-repeat: no-repeat;
+        /* Ensures the image does not repeat */
+        background-position: center;
+        /* Centers the image */
+
+        user-select: none;
+        /* Prevents text selection */
+        -webkit-user-select: none;
+        /* For webkit-based browsers like Chrome and Safari */
+        -ms-user-select: none;
+        /* For older versions of IE */
+    }
+
+    .logo-container {
+        z-index: 8;
+        position: fixed; /* Use fixed positioning to center relative to the viewport */
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center the element both horizontally and vertically */
+        
+        display: flex; /* Enables flexbox layout */
+        flex-direction: column; /* Ensures vertical stacking of elements */
+        align-items: center; /* Horizontally centers child elements inside the container */
+        justify-content: center; /* Vertically centers child elements inside the container */
+
+        /* Optional: Adjust size and other styles */
+        width: auto; /* Adjust to your needs */
+        height: auto;
+        text-align: center;
+    }
+
+    .logo-container img {
+        width: max(21.5vh, 13vw, 13em);
+        /* Adjust logo size */
+        height: auto;
+    }
+
+    .version {
+        font-family: 'Juvanze';
+        color: #fefefe;
+        font-size: 1rem;
+        text-shadow: 2px 2px 2px black;
+        /* text-shadow:
+            -1px -1px 0 black,
+            1px -1px 0 black,
+            -1px 1px 0 black,
+            1px 1px 0 black; */
+    }
+
+    .game-type {
+        font-family: 'WinterLemon';
+        color: rgb(255, 158, 46);
+        font-size: 1.25em;
+        /* text-shadow: 2px 2px 2px black; */
+        text-shadow:
+            -1.5px -1.5px 0 black,
+            1.5px -1.5px 0 black,
+            -1.5px 1.5px 0 black,
+            1.5px 1.5px 0 black;
+        /* text-shadow: 2px 2px 2px black; */
+        margin-bottom: 10px;
+        white-space: nowrap;
+    }
+
+    .about-section {
+        text-align: center;
+        font-family: 'Juvanze';
+        font-size: max(1.75vh, 12px);
+        color: #fefefe;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        position: fixed;
+        /* Positions the div relative to the viewport */
+        bottom: 0%;
+        /* Places it 10px from the bottom of the screen */
+        left: 50%;
+        /* Centers the div horizontally */
+        transform: translateX(-50%);
+        /* Centers the div horizontally */
+        max-width: 35%;
+        min-width: 370px;
+        /* margin-bottom: 1vh; */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* border: 3px solid rgba(0, 0, 0, 0.4); */
+        border-radius: 10px 10px 0 0;
+        padding: 0.75vh;
+        text-align: justify;
+        backdrop-filter: blur(px);
+    }
+
+    .browser-warning {
+        text-align: center;
+        font-family: 'WinterLemon';
+        font-size: max(1.35vh, 10px);
+        color: rgb(175, 175, 0);
+        text-shadow: 2px 2px 2px black;
+        /* margin-bottom: 10px; */
+        position: fixed;
+        /* Positions the div relative to the viewport */
+        top: 0;
+        /* Places it 10px from the bottom of the screen */
+        left: 50%;
+        /* Centers the div horizontally */
+        transform: translateX(-50%);
+        /* Centers the div horizontally */
+        max-width: 50%;
+        background-color: rgba(0, 0, 0, 0.4);
+        /* border: 3px solid rgba(0, 0, 0, 0.4); */
+        border-radius: 0 0 10px 10px;
+        padding: .75vh;
+        backdrop-filter: blur(4px);
+    }
+
+    .button-group {
+        margin-top: 2vh;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: max-content; /* optional: prevents parent from being too wide */
+    }
+
+    .button-group input {
+        display: block;
+        /* width: 100%; */
+        padding: 0.65em 0.9em;
+        font-size: 1.05em;
+        border-radius: 10px;
+        border: 2px solid #444;
+        background: linear-gradient(180deg, #1b1b1b 0%, #121212 100%);
+        color: #fff;
+        outline: none;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 2px 4px rgba(0,0,0,0.6);
+        transition: border-color 0.12s ease, box-shadow 0.12s ease, transform 0.08s ease;
+    }
+
+    button.game-btn {
+        width: 100%;
+        padding: 0.5em 1em;
+
+        margin-top: 1vh;
+        /* Adds space between buttons */
+        /* padding: 1vh; */
+        font-size: 1.35em;
+        cursor: pointer;
+        /* width: min(250px, 45vw); */
+        /* height: min(60px, 10vh); */
+        border-radius: 10px;
+        border: 3px solid lighgray;
+        /* Default border color */
+        background-color: rgb(6, 154, 6);
+        font-family: 'WinterLemon';
+        color: #fefefe;
+        text-shadow: 2px 2px 2px black;
+        /* text-shadow:
+            -1px -1px 0 black,
+            1px -1px 0 black,
+            -1px 1px 0 black,
+            1px 1px 0 black; */
+        box-shadow: 2px 2px 3px black;
+        transition: background-color 0.15s ease, transform 0.1s ease-in-out, border-color 0.15s ease-in-out;
+        /* Smooth transition */
+    }
+
+    button.game-btn:hover {
+        background-color: rgb(42, 225, 29);
+        /* background-color: rgb(235, 100, 42); */
+        border-color: #fefefe;
+    }
+
+    button.game-btn:active:not(:disabled) {
+        transform: scale(0.98);
+        /* Scales down the button when active and not disabled */
+        transition: transform 0.05s ease-in-out;
+        background-color: rgb(42, 225, 29);
+        /* Optional hover effect when active */
+        box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+        /* Optional shadow when active */
+    }
+
+    button.game-btn:not(:disabled) {
+        cursor: pointer;
+        /* Enable pointer cursor for active buttons */
+    }
+
+    button.game-btn:disabled {
+        background-color: #ccc;
+        /* Light gray background for disabled buttons */
+        color: #666;
+        /* Dimmed text color */
+        cursor: not-allowed;
+        /* Cursor indicates the button is not clickable */
+        border-color: transparent;
+        /* No border for disabled buttons */
+        box-shadow: none;
+        /* Optionally remove shadow for disabled buttons */
+        transform: none;
+        /* Ensure no scaling effect when disabled */
+    }
+
+    #login-back-btn {
+        background-color: red;
+        display: block;
+    }
+
+    #login-back-btn:hover{
+        background-color: rgb(188, 0, 0);
+    }
+
+    #register-back-btn {
+        background-color: red;
+        display: block;
+    }
+
+    #register-back-btn:hover {
+        background-color: rgb(188, 0, 0);
+    }
+
+    /* #login-btn {
+        margin-top: 50px; 
+    } */
+
+    #reset-session-btn {
+        cursor: pointer;
+        width: 100px;
+        height: 35px;
+        background-color: red;
+        position: fixed;
+        bottom: 10px; /* Distance from the bottom of the viewport */
+        right: 10px; /* Distance from the right edge of the viewport */
+    }
+
+    #reset-session-btn:active {
+        transform: scale(0.95);
+    }
+
+    .server-status {
+        width: 12%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0.5vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        width: auto;
+        color: #fefefe;
+        padding: 10px;
+        border-radius: 10px;
+        font-family: 'WinterLemon';
+        font-size: 16px;
+        backdrop-filter: blur(3px);
+    }
+
+    .server-status-data-row {
+        font-size: max(1.5vh, 13px);
+        width: 100%;
+        white-space: nowrap;
+        /* width: 200px; */
+    }
+
+    .server-status-data-row .value {
+        text-shadow: 2px 2px 2px black;
+        color: #fefefe;
+        padding-left: .5vw
+    }
+
+    .server-status-data-row li {
+        text-shadow: 2px 2px 2px black;
+        color: yellow;
+    }
+
+    .info-container {
+        /* width: max(20vw); */
+        position: absolute;
+        top: 0;
+        right: 0;
+        
+        color: #fefefe;
+        padding: .5vh;
+        border-radius: 0 0 0 10px;
+        /* border: 3px solid rgba(0, 0, 0, 0.4); */
+        backdrop-filter: blur(4px);
+        /* width: 250px; */
+    }
+
+    .info-container h2 {
+        padding: 0.5vh;
+        margin: 0;
+        text-align: center;
+        /* margin-top: 0px; */
+        /* margin-bottom: 0px; */
+        font-family: 'WinterLemon';
+        color: yellow;
+        text-shadow: 2px 2px 2px black;
+        font-size: 2vh;
+    }
+
+    .recent-changelog,
+    .players-ranking {
+        padding: 1vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        margin-bottom: 1vh;
+        border-radius: 10px;
+        /* width: 100%; */
+        /* padding-left: 0%; */
+        font-size: max(1.5vh, 10px);
+    }
+
+    .changelog-entry {
+        font-family: 'Juvanze';
+        font-size: max(1.5vh, 10px);
+    }
+
+    .changelog-entry ul {
+        padding-left: 2vh;
+        list-style: none;
+        margin-top: 5px;
+    }
+
+    .changelog-entry h4 {
+        font-size: 1.6vh;
+        font-family: 'WinterLemon';
+        text-shadow: 2px 2px 2px black;
+        /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); */
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    .ranking-table {
+        width: 100%;
+        border-collapse: collapse;
+        /* margin-top: 1rem; */
+    }
+
+    .ranking-table th, .ranking-table td {
+        font-family: 'WinterLemon';
+        border: 1px solid #ccc;
+        padding: 0.35vh 0.35vh;
+        text-align: left;
+        font-size: 1.6vh;
+    }
+
+    .ranking-table th {
+        color: yellow;
+        text-shadow: 2px 2px 2px black;
+        background-color: rgba(0, 0, 0, 0.2)
+    }
+
+    .ranking-table td {
+        font-family: 'WinterLemon';
+        font-size: 1.35vh;
+        text-align: left;
+    }
+
+
+    .ranking-table th:nth-child(1) {
+        color: #fefefe;
+    }
+
+
+    .ranking-table th:nth-child(3) {
+        color: #f5ab49;
+        font-family: 'Juvanze';
+    }
+
+    .ranking-table th:nth-child(4) {
+        color: #35c728;
+        font-family: 'Juvanze';
+    }
+
+    .ranking-table th:nth-child(5) {
+        color: #fefefe;
+        font-family: 'Juvanze';
+    }
+
+    .ranking-table th:nth-child(6) {
+        color: yellow;
+        font-family: 'Juvanze';
+    }
+
+    .ranking-table td:nth-child(2) {
+        color: yellow;
+    }
+
+    .ranking-table td:nth-child(3) {
+        color: #f5ab49;
+        font-family: 'Juvanze';
+    }
+
+    .ranking-table td:nth-child(4) {
+        color: #35c728;
+        font-family: 'Juvanze';
+    }
+
+    .ranking-table td:nth-child(5) {
+        color: white;
+        font-family: 'Juvanze';
+    }
+
+    .ranking-table td:nth-child(6) {
+        color: yellow;
+        font-family: 'Juvanze';
+    }
+
+
+    /* Style the container */
+    #logo-links-container {
+        position: fixed;
+        bottom: max(1vw, 1vh); /* Adjust as needed */
+        left: max(1vw, 1vh);   /* Adjust as needed */
+        display: flex;
+        flex-direction: column; /* Make the items stack vertically */
+        gap: 0.5vh; /* Space between the icons */
+        z-index: 7; /* Ensure it's above other elements */
+    }
+
+    /* Style the images */
+    .logo-image {
+        width: max(10vw, 150px); /* Adjust the size */
+        height: auto; /* Maintain consistent dimensions */
+        transition: transform 0.3s;
+        padding: 5px;
+        border-radius: 5px;
+        border-color: rgba(0, 0, 0, 0.3);
+        border: 2px solid;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adjust the blur radius here (10px) */
+    }
+
+    .logo-image:hover {
+        transform: scale(1.1); /* Slightly enlarge on hover */
+        cursor: pointer;
+    }
+
+    #discord-logo {
+        background-color: #fefefe;
+        padding-bottom: 0.5vh;
+        padding-top: 0.5vh;
+    }
+
+    #yt-logo {
+        background-color: #fefefe;
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
+    .announcement {
+        margin-top: 2vh;
+        border: 1px solid rgba(0, 255, 200, 0.3);
+        border-radius: 10px;
+        padding: 0.5vh;
+        background: rgba(10, 10, 10, 0.7);
+        box-shadow: 0 0 12px rgba(0, 255, 200, 0.2);
+        text-align: center;
+        max-width: 600px;
+        /* font-family: 'Orbitron', sans-serif; */
+        color: #cfffff;
+        animation: flickerGlow 2s infinite;
+    }
+
+    .announcement-body .glow-text {
+        font-size: max(2vh, 15px);
+        color: #ffffff;
+        text-shadow: 0 0 8px red;
+        /* margin: 5px 0; */
+        font-family: 'Juvanze';
+    }
+
+    .mobile-support-warning {
+        /* border: 1px solid rgba(0, 255, 200, 0.3); */
+        border-radius: 1vh;
+        padding: 1vh;
+        background: rgba(10, 10, 10, 0.7);
+        box-shadow: 0 0 12px rgba(0, 255, 200, 0.2);
+        font-size: 1.25em;
+        color: red;
+        /* text-shadow: 0 0 8px #00ffc3; */
+        /* margin: 5px 0; */
+        font-family: 'Juvanze';
+    }
+
+    .subtle-text {
+        font-size: max(1.5vh, 12px);
+        color: #cccccc;
+        opacity: 0.7;
+        font-family: 'Juvanze';
+    }
+
+    #cookie-info {
+        margin-top: 1vh;
+        font-size: max(1.5vh, 12px);
+        font-family: 'Juvanze';
+        color: forestgreen;
+        text-shadow: 1px 1px 1px black;
+    }
+
+    #try-as-guest-btn {
+        margin-top: 2vh;
+    }
+
+
+
+
+
+    /* Modal backdrop */
+    .modal-backdrop {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; 
+        height: 100%;
+        background: rgba(0,0,0,0.75);
+        justify-content: center;
+        align-items: center;
+        z-index: 9;
+    }
+
+    /* Modal content */
+    .modal {
+        width: max(15vw, 200px);
+        background: rgb(75, 75, 75);
+        border: 2px solid rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: left; /* labels and content aligned left */
+    }
+
+    .modal h2 {
+        color: yellow;
+        font-family: 'WinterLemon';
+        text-shadow: 2px 2px 2px black;
+        text-align: center;
+        margin-bottom: 1.5vh;
+        font-size: 2.5vh;
+    }
+
+    .modal h4 {
+        color: rgba(255,255,255,0.8);
+        font-family: 'WinterLemon';
+        text-shadow: 2px 2px 2px black;
+        text-align: center;
+        margin-bottom: 1vh;
+        font-size: 1.5vh;
+        text-align: left;
+    }
+
+    .modal label {
+        color: rgba(255,255,255,0.80);
+        font-size: 1.5vh;
+        font-family: 'Juvanze';
+    }
+
+    .modal input {
+        box-sizing: border-box;
+    }
+
+    /* Inputs */
+    .modal input[type="text"],
+    .modal input[type="password"] {
+        width: 100%;
+        padding: 6px;
+        margin: 0.25vh;
+        border: 2px solid;
+        border-color: #ccc;
+        border-radius: 4px;
+
+        font-size: 1.5vh;
+    }
+
+    .modal input:focus {
+        border-color: rgb(53, 168, 206);
+    }
+
+    .modal input.error {
+        border-color: red;
+        color: red
+    }
+
+    /* Wrapper to center the button group */
+    .btn-wrapper {
+        display: flex;
+        justify-content: center;  /* center horizontally */
+        margin-top: 15px;
+    }
+
+    /* Button group */
+    .btn-row {
+        display: inline-flex;
+        flex-direction: column;  /* stack vertically */
+        gap: 10px;
+        align-items: stretch;    /* buttons fill group width */
+        width: max-content;      /* container width matches widest button */
+    }
+
+    /* Buttons in the group */
+    .btn-row button {
+        flex: 1 1 auto;          /* equal width for all buttons */
+        padding: 10px 20px;
+        border-radius: 4px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        border: 2px solid rgba(0, 0, 0, 0.5);
+        box-shadow: 2px 2px 3px black;
+        border-radius: 7px;
+        font-family: 'WinterLemon';
+        text-shadow: 2px 2px 2px black;
+        font-size: 1.75vh;
+        scale: 1;
+    }
+
+    .btn-row button:active:not(:disabled) {
+        scale: 0.95;
+    }
+
+    .btn-row button:hover:not(:disabled) {
+        border-color: #fefefe;
+    }
+
+    /* Specific button styles */
+    #login-submit:not(:disabled),
+    #register-submit:not(:disabled) {
+        background-color: forestgreen;
+        color: white;
+    }
+
+    #login-submit:hover:not(:disabled),
+    #register-submit:hover:not(:disabled) {
+        background-color: #3fbf3f; /* lighter green on hover */
+    }
+
+    #closeLoginModalBtn,
+    #closeRegisterModalBtn,
+    #close-terms-and-considtions-modal-btn,
+    #close-account-created-modal-btn {
+        background-color: red;
+        color: white;
+    }
+
+    #closeLoginModalBtn:hover,
+    #closeRegisterModalBtn:hover,
+    #close-terms-and-considtions-modal-btn:hover,
+    #close-account-created-modal-btn:hover {
+        background-color: #bd0000; /* darker red on hover */
+    }
+
+    /* Terms & Conditions fake link */
+    #open-terms {
+        font-size: 1.5vh;
+        font-family: 'Juvanze';
+        text-shadow: 2px 2px 2px black;
+        /* font-weight: bold; */
+        text-decoration: underline;
+        color: yellow;
+        cursor: pointer;
+    }
+
+    #open-terms:hover {
+        color: #aee0ff; /* lighter blue hover */
+
+    }
+
+    .modal input[type="checkbox"] {
+        cursor: pointer;
+    }
+
+    #register-terms {
+        cursor: pointer;
+    }
+
+    #terms-and-conditions-modal {
+        overflow-y: auto;       /* vertical scrollbar if content is too tall */
+        overflow-x: hidden;     /* prevent horizontal scroll */
+        /* max-width: max(400px, 20%); */
+    }
+
+    #terms-and-conditions-modal .modal {
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-width: max(400px, 20%);
+        /* width: 90%; */
+    }
+
+    #discord-logo-mini {
+        background-color: #fefefe;
+        padding-bottom: 0.5vh;
+        padding-top: 0.5vh;
+        width: 8vh;
+    }
+
+    .form-error-msg {
+        height: 2vh;
+        width: 100%;          /* fill parent width */
+        max-width: 100%;      /* never exceed parent */
+        display: block;
+        margin-top: 0.75vh;
+        color: orangered;
+        font-size: 1.5vh;
+        text-shadow: 2px 2px 2px black;
+        font-family: 'Juvanze';
+        box-sizing: border-box; /* include padding/border in width */
+        word-wrap: break-word;  /* legacy, widely supported */
+        overflow-wrap: break-word; /* modern equivalent */
+    }
+
+    #register-success-modal .modal h2 {
+        color: forestgreen;
+    }
+
+
+    .hidden {
+        display: none !important;
+    }
+
+</style>
+
+<body>
+    <script type="module" src="./src/main.ts"></script>
+    <div class="logo-container">
+        <img src="/logo_with_sword.png" alt="Logo"> <!-- Replace with your logo URL -->
+        <div class="game-type" id="game-type-info">⚔️ MMO RPG ⚔️</div>
+        <div class="version" id="game-version"></div>
+        <div class="mobile-support-warning mobile-show"> Mobile Not Supported ⚠️</div>
+        <div id='first-btn-group' class="button-group">
+            <button class="game-btn" id="login-btn">PLAY IN BROWSER</button>
+            <button class="game-btn" id="login-btn" disabled>DOWNLOAD</button>
+        </div>
+        <div id="cookie-info">Guest game progress is automatically saved with cookie</div>
+        <div class="announcement mobile-hide">
+            <div class="announcement-body">
+                <p class="glow-text">⚠️ Public Alpha Tests v.2. Comming Soon! ⚠️</p>
+                <!-- <p class="subtle-text">Starts in late August or early September <br> <span style="color: orange;">⚠️Includes guest accounts cleanup ⚠️</span></p> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="server-status">
+        <div class="server-status-data-row">
+            <span class="value" id="server-status-value" style="color: yellow;">SERVER STATUS:</span>
+        </div>
+        <div class="server-status-data-row">
+            <span class="value" id="localhost-status">LOCALHOST:</span><span class="value" id="localhost-status">🟢 ONLINE (0)</span>
+        </div>
+        <div class="server-status-data-row">
+          <span class="value" id="localhost-status">EU-1:</span><span class="value" id="localhost-status">🔴 OFFLINE</span>
+        </div>
+    </div>
+
+    <div class="info-container mobile-hide">
+        <div class="recent-changelog">
+            <h2>🎁 PATCHNOTES</h2>
+            <div class="changelog-entries" id="changelog-entries"></div>
+        </div>
+        <div class="players-ranking">
+            <h2>🏆 TOP-15</h2>
+            <div id="players-ranking"></div>
+        </div>
+    </div>
+    <button id="reset-session-btn" style="display: none;">CLEAR SESSION</button>
+    <div class="about-section mobile-hide">
+        Maiu Online is a solo-developed mini MMORPG that began as a learning project and is now slowly evolving into a game with a growing community.<br><br>
+        Inspired by games like Diablo and MU Online, it brings a familiar style of play with plans for faster, more exciting combat in future updates.
+    </div>
+    <div class="browser-warning mobile-hide">LEADERBOARDS NEWS/UPDATES</div>
+
+    <div id="logo-links-container">
+        <a href="https://discord.gg/BeGQWk6zeK" target="_blank">
+            <img src="/discord.png" alt="Logo 1" class="logo-image" id="discord-logo">
+        </a>
+        <a href="https://www.youtube.com/@MaiuOnline " target="_blank">
+            <img src="/yt.png" alt="Logo 2" class="logo-image" id="yt-logo">
+        </a>
+    </div>
+
+
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal-backdrop">
+        <div class="modal">
+            <h2>LOG IN TO MAIU</h2>
+            <label for="login-username">Username</label><br />
+            <input type="text" id="login-username" maxlength="20" /><br /><br />
+
+            <label for="login-password">Password</label><br />
+            <input type="password" id="login-password" maxlength="20" /><br />
+
+            <div class="form-error-msg" id="login-error"></div>
+
+            <div class="btn-wrapper">
+                <div class="btn-row">
+                    <button id="login-submit">ENTER GAME</button>
+                    <button id="closeLoginModalBtn">BACK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="modal-backdrop">
+        <div class="modal">
+            <h2>REGISTER FOR MAIU</h2>
+
+            <label for="register-username">Username</label><br />
+            <input type="text" id="register-username" maxlength="20" /><br /><br />
+
+            <label for="register-password">Password</label><br />
+            <input type="password" id="register-password" maxlength="20" /><br /><br />
+
+            <label for="register-confirm-password">Confirm Password</label><br />
+            <input type="password" id="register-confirm-password" maxlength="20" /><br />
+
+            <div>
+                <input type="checkbox" id="register-terms" />
+                <label for="register-terms">
+                    I accept the
+                </label>
+                <span id="open-terms" style="text-decoration: underline; cursor: pointer;">
+                    Terms &amp; Conditions
+                </span>
+            </div>
+
+            <div class="form-error-msg" id="register-error"></div>
+
+            <div class="btn-wrapper">
+                <div class="btn-row">
+                    <button id="register-submit">REGISTER</button>
+                    <button id="closeRegisterModalBtn">BACK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms And Conditions Modal -->
+    <div id="terms-and-conditions-modal" class="modal-backdrop">
+        <div class="modal">
+            <h2>Terms & Conditions</h2>
+
+            <h4>Game Rules & Code of Conduct</h4>
+            <div>
+                Players are expected to treat all members of the community with courtesy and consideration.
+                Using cheats, exploits, or third-party tools to gain an unfair edge is strictly forbidden.
+                Harassment, discriminatory language, or inappropriate behavior may result in penalties, including temporary or permanent suspension of accounts.
+            </div>
+            <h4>Data Collection & Privacy</h4>
+            <div>
+                We collect and retain usernames and passwords (stored in encrypted form) solely to manage accounts and provide support.
+                Personal information will not be sold or disclosed to third parties, except as legally required.
+                Players may request the deletion of their data by contacting support, which will result in account closure.
+                Cookies are used exclusively for authentication and session purposes.
+            </div>
+            <h4>Game Changes & Account Termination</h4>
+            <div>
+                Maiu Online is currently in early-access, so updates may substantially change gameplay, progression, and features.
+                We reserve the right to alter, suspend, or terminate accounts that breach our Terms & Conditions.
+                Accounts or items may be removed from the system if required by the development process.
+                Scheduled server maintenance or updates may temporarily limit access to the game.
+            </div>
+            <h4>Contact Information & Support</h4>
+            <div>
+                <a href="https://discord.gg/BeGQWk6zeK" target="_blank">
+                    <img src="other/discord.png" alt="Logo 1" class="logo-image" id="discord-logo-mini">
+                </a>
+            </div>
+
+            <div class="btn-wrapper">
+                <div class="btn-row">
+                    <button id="close-terms-and-considtions-modal-btn">BACK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="register-success-modal" class="modal-backdrop">
+        <div class="modal">
+            <h2>Account created successfully.<br>Can login into the game.</h2>
+            <div class="btn-wrapper">
+                <div class="btn-row">
+                    <button id="close-account-created-modal-btn">BACK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div style="font-size: 2vh; background-color: #d32f2f; color: white; padding: 12px; text-align: center; font-weight: bold; position: fixed; top: 0; width: 100%; z-index: 9999; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">
+    ⚠️ Pre Alpha Tests Maintenance: The game will be offline on 26-28 August
+    </div> -->
+    
+
+    <script>
+        function updateVisibility() {
+            document.addEventListener("contextmenu", event => event.preventDefault());
+            
+            const isMobile = window.innerWidth <= 800 || window.innerHeight <= 540;
+
+            const hiddenOnMobile = document.querySelectorAll('.mobile-hide');
+            const shownOnMobile = document.querySelectorAll('.mobile-show');
+
+            hiddenOnMobile.forEach(el => {
+                el.classList.toggle('hidden', isMobile);
+            });
+
+            shownOnMobile.forEach(el => {
+                el.classList.toggle('hidden', !isMobile);
+            });
+
+            //showing, hiding modals
+            const menuClickSound = new Audio("sounds/ui/mini-menu-option.mp3");
+            menuClickSound.volume = 0.25;
+            menuClickSound.preload = 'auto'
+
+            const checkboxClickSoud = new Audio('sounds/ui/add-stats.mp3')
+            checkboxClickSoud.volume = 0.25;
+            checkboxClickSoud.preload = 'auto'
+
+
+            const loginBtn = document.getElementById("login-btn");
+            const registerBtn = document.getElementById("register-btn");
+            const tryAsGuestBtn = document.getElementById('try-as-guest-btn')
+            const loginSubmit = document.getElementById('login-submit')
+            const registerSubmit = document.getElementById('register-submit')
+
+            const registerErrorDiv = document.getElementById('register-error')
+            const loginErrorDiv = document.getElementById('login-error')
+
+
+
+            const termsCheckbox = document.getElementById('register-terms')
+
+            const loginModal = document.getElementById("login-modal")
+            const registerModal = document.getElementById("register-modal")
+            const termsAndConditionsModal = document.getElementById("terms-and-conditions-modal")
+
+            const closeLoginModalBtn = document.getElementById("closeLoginModalBtn");
+            const closeRegisterModalBtn = document.getElementById("closeRegisterModalBtn");
+            const closeTermsModalBtn = document.getElementById("close-terms-and-considtions-modal-btn");
+
+
+            const loginUsername = document.getElementById('login-username')
+            const loginPassword = document.getElementById('login-password')
+
+            const registerUsername = document.getElementById('register-username')
+            const registerPassword = document.getElementById('register-password')
+            const registerConfirnPassword = document.getElementById('register-confirm-password')
+
+            loginBtn.onclick = () => {
+                menuClickSound.play()
+                loginModal.style.display = 'flex'
+
+                loginErrorDiv.textContent = ''
+                loginErrorDiv.style.display = 'none'
+                loginSubmit.disabled = false;
+
+                loginUsername.style.borderColor = ''
+                loginPassword.style.borderColor = ''
+            }
+
+            registerBtn.onclick = () => {
+                menuClickSound.play()
+                registerModal.style.display = 'flex'
+            }
+
+            closeLoginModalBtn.onclick = () => {
+                menuClickSound.play()
+                loginModal.style.display = 'none'
+
+                //cleanup inputs
+                loginPassword.value = ''
+            }
+
+            closeRegisterModalBtn.onclick = () => {
+                menuClickSound.play()
+                registerModal.style.display = 'none'
+
+                //cleanup inputs
+                registerUsername.value = ''
+                registerUsername.classList.remove('error')
+
+                registerPassword.value = ''
+                registerPassword.classList.remove('error')
+
+                registerConfirnPassword.value = ''
+                registerConfirnPassword.classList.remove('error')
+                termsCheckbox.checked = false
+
+                registerErrorDiv.textContent = ''
+                registerErrorDiv.style.display = ''
+            }
+
+            tryAsGuestBtn.onclick = () => {
+                menuClickSound.play()
+            }
+
+            loginSubmit.onclick = () => {
+                menuClickSound.play()
+            }
+
+            registerSubmit.onclick = () => {
+                menuClickSound.play()
+            }
+
+            closeTermsModalBtn.onclick = () => {
+                menuClickSound.play()
+                termsAndConditionsModal.style.display = 'none'
+            }
+
+            const openTerms = document.getElementById('open-terms')
+            openTerms.onclick = () => {
+                menuClickSound.play()
+                termsAndConditionsModal.style.display = 'flex'
+            }
+
+            
+            termsCheckbox.onclick = () => {
+                checkboxClickSoud.play()
+            }
+
+            const registerSuccessModal = document.getElementById('register-success-modal')
+            const registerSuccessModalCloseBtn = document.getElementById('close-account-created-modal-btn')
+
+            registerSuccessModalCloseBtn.onclick = () => {
+                menuClickSound.play()
+                registerSuccessModal.style.display = 'none'
+            }
+        }
+
+        window.addEventListener('resize', updateVisibility);
+        window.addEventListener('DOMContentLoaded', updateVisibility);
+    </script>
+
+    
+</body>
+
 </html>
