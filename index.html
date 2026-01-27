@@ -336,15 +336,16 @@
         font-size: 2vh;
     }
 
-    .recent-changelog,
-    .players-ranking {
+    #news-changelog {
         padding: 1vh;
         background-color: rgba(0, 0, 0, 0.4);
         margin-bottom: 1vh;
         border-radius: 10px;
         /* width: 100%; */
         /* padding-left: 0%; */
-        font-size: max(1.5vh, 10px);
+        color: yellow; 
+        text-decoration: underline; 
+        font-size: 1.5em
     }
 
     .changelog-entry {
@@ -753,10 +754,72 @@
         display: none !important;
     }
 
+    .topbar {
+        font-family: 'WinterLemon';
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        height: 64px;
+        padding: 0 24px;
+        background: rgba(10, 10, 12, 0.9);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo {
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        color: #eee;
+    }
+
+    .nav {
+        display: flex;
+        gap: 32px;
+    }
+
+    .nav a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #ddd;
+        text-decoration: none;
+        font-weight: 500;
+        position: relative;
+    }
+
+    .nav a span {
+        font-size: 1.1em;
+    }
+
+    .nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 0;
+        height: 2px;
+        background: #c9a24d;
+        transition: width 0.2s ease;
+    }
+
+    .nav a:hover::after {
+        width: 100%;
+    }
+
 </style>
 
 <body>
     <script type="module" src="./src/main.ts"></script>
+    <header class="topbar">
+        <div class="logo">⚔️ MAIU ONLINE</div>
+            <nav class="nav">
+                <a href="#"><span>🏆</span>Leaderboards</a>
+                <a href="#"><span>🛡️</span>Armory</a>
+                <a href="#"><span>📖</span>Wiki</a>
+                <a href="#"><span>📖</span>News and Updates</a>
+            </nav>
+        <div class="right"></div>
+    </header>
     <div class="logo-container">
         <img src="/logo_with_sword.png" alt="Logo"> <!-- Replace with your logo URL -->
         <div class="game-type" id="game-type-info">⚔️ MMORPG ⚔️</div>
@@ -764,6 +827,7 @@
         <div class="mobile-support-warning mobile-show"> Mobile Not Supported ⚠️</div>
         <div id='first-btn-group' class="button-group">
             <button class="game-btn" id="play-in-browser-btn">PLAY IN BROWSER</button>
+            <button class="game-btn" id="register-btn" style="margin-bottom: 1em;">REGISTER</button>
             <button class="game-btn" id="download-btn" disabled>DOWNLOAD</button>
         </div>
         <div class="announcement mobile-hide">
@@ -775,34 +839,28 @@
         </div>
     </div>
 
-    <div class="server-status">
-        <div class="server-status-data-row">
-            <span class="value" id="server-status-value" style="color: yellow;">SERVER STATUS:</span>
+    <div class="server-status" style="margin-top: 75px;">
+        <div class="server-status-data-row" style="margin-bottom: 20px;">
+            <span class="value" id="server-status-value" style="color: yellow; text-decoration: underline; font-size: 1.5em">🌍 SERVERS:</span>
         </div>
         <div class="server-status-data-row">
-            <span class="value" id="localhost-status">LOCALHOST:</span><span class="value" id="localhost-status">🟢 ONLINE (0)</span>
+            <span class="value" id="localhost-status">💻 LOCALHOST:</span><span class="value" id="localhost-status" style="color: #35c728;">🟢 ONLINE (0)</span>
         </div>
         <div class="server-status-data-row">
-          <span class="value" id="localhost-status">EU-1:</span><span class="value" id="localhost-status">🔴 OFFLINE</span>
+          <span class="value" id="localhost-status">🇪🇺 EUROPE:</span><span class="value" id="localhost-status" style="color: crimson;">🔴 OFFLINE</span>
         </div>
     </div>
 
-    <div class="info-container mobile-hide">
-        <div class="recent-changelog">
-            <h2>🎁 PATCHNOTES</h2>
-            <div class="changelog-entries" id="changelog-entries"></div>
-        </div>
-        <div class="players-ranking">
-            <h2>🏆 TOP-15</h2>
-            <div id="players-ranking"></div>
+    <div class="info-container mobile-hide" style="margin-top: 75px;">
+        <div id="news-changelog">
+            <h2>📢 ANNOUNCEMENTS</h2>
         </div>
     </div>
     <button id="reset-session-btn" style="display: none;">CLEAR SESSION</button>
     <div class="about-section mobile-hide">
-        Maiu Online is a solo-developed mini MMORPG that began as a learning project and is now slowly evolving into a game with a growing community.<br><br>
+        Maiu Online is a solo-developed mini MMORPG that began as a learning project and now is slowly evolving into a game with a growing community.<br><br>
         Inspired by games like Diablo and MU Online, it brings a familiar style of play with plans for faster, more exciting combat in future updates.
     </div>
-    <div class="browser-warning mobile-hide">LEADERBOARDS NEWS/UPDATES</div>
 
     <div id="logo-links-container">
         <a href="https://discord.gg/BeGQWk6zeK" target="_blank">
@@ -814,27 +872,6 @@
     </div>
 
 
-
-    <!-- Login Modal -->
-    <div id="login-modal" class="modal-backdrop">
-        <div class="modal">
-            <h2>LOG IN TO MAIU</h2>
-            <label for="login-username">Username</label><br />
-            <input type="text" id="login-username" maxlength="20" /><br /><br />
-
-            <label for="login-password">Password</label><br />
-            <input type="password" id="login-password" maxlength="20" /><br />
-
-            <div class="form-error-msg" id="login-error"></div>
-
-            <div class="btn-wrapper">
-                <div class="btn-row">
-                    <button id="login-submit">ENTER GAME</button>
-                    <button id="closeLoginModalBtn">BACK</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Register Modal -->
     <div id="register-modal" class="modal-backdrop">
