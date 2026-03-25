@@ -1,4 +1,6 @@
 .topbar {
+    font-family: 'WinterLemon';
+    font-size: 26px;
     position: fixed;
     top: 0;
     left: 0;
@@ -28,7 +30,7 @@
 }
 
 .nav a.active {
-    color: #c9a24d;
+    color: yellow;
 }
 
 /* --- PAGES --- */
