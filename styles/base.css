@@ -1,24 +1,17 @@
-
-    @font-face {
-        font-family: 'WinterLemon';
-        src: url('/winter-lemon.ttf') format('truetype');
-    }
+@font-face {
+    font-family: 'WinterLemon';
+    src: url('/winter-lemon.ttf') format('truetype');
+}
 
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-size: cover;
-    /* Adjusts the image to cover the entire page */
-    background-repeat: no-repeat;
-    /* Ensures the image does not repeat */
-    background-position: center;
-    overflow: hidden;
+
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
 
-    background-image: url('/main_page.jpg');
     /* Replace with your image URL */
     background-size: cover;
     /* Adjusts the image to cover the entire page */
@@ -36,6 +29,13 @@ body {
 }
 
 #app {
+    background-image: url('/main_page.jpg');
+    background-size: cover;
+    /* Adjusts the image to cover the entire page */
+    background-repeat: no-repeat;
+    /* Ensures the image does not repeat */
+    background-position: center;
+    overflow: hidden;
     position: absolute;
     top: 64px;
     width: 100%;

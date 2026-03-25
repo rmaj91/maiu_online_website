@@ -35,10 +35,9 @@
 
 /* --- PAGES --- */
 .page {
-    position: absolute;
-    top: 64px;
-    width: 100%;
-    height: calc(100% - 64px);
+    position: relative;
+    margin-top: 64px;
+    min-height: calc(100vh - 64px);
 }
 
 .hidden {
