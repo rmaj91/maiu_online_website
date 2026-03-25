@@ -1,14 +1,57 @@
 <div class="main">
 
-    <div class="center">
-        <h1>⚔ MMORPG GAME ⚔</h1>
+    <script type="module" src="../src/main.ts"></script>
 
-        <button>PLAY</button>
-        <button disabled>DOWNLOAD</button>
+    <div class="server-status" style="margin-top: 75px;">
+        <div class="server-status-data-row" style="margin-bottom: 20px;">
+            <span class="value" id="server-status-value" style="color: yellow; text-decoration: underline; font-size: 1.5em">🌍 SERVERS:</span>
+        </div>
+        <div class="server-status-data-row">
+            <span class="value">💻 LOCALHOST:</span><span class="value" id="localhost-status" style="color: #35c728;">🟢 ONLINE (0)</span>
+        </div>
+        <div class="server-status-data-row">
+            <span class="value">🇪🇺 EUROPE:</span><span class="value" id="europe-status" style="color: crimson;">🔴 OFFLINE</span>
+        </div>
+        <div class="server-status-data-row">
+            <span class="value">🇦🇺 AUSTRALIA:</span><span class="value" id="australia-status" style="color: crimson;">🔴 OFFLINE</span>
+        </div>
     </div>
 
-    <div class="announcement">
-        ⚠ PUBLIC ALPHA v2 IS LIVE
+    <div id="logo-links-container">
+        <a href="https://discord.gg/BeGQWk6zeK" target="_blank">
+            <img src="/discord.png" alt="Logo 1" class="logo-image" id="discord-logo">
+        </a>
+        <a href="https://www.youtube.com/@MaiuOnline " target="_blank">
+            <img src="/youtube.png" alt="Logo 2" class="logo-image" id="yt-logo">
+        </a>
+    </div>
+
+    <div class="logo-container">
+        <img src="/logo_with_sword.png" alt="Logo"> <!-- Replace with your logo URL -->
+        <div class="game-type" id="game-type-info">⚔️ MMORPG ⚔️</div>
+        <div class="version" id="game-version"></div>
+        <div class="mobile-support-warning mobile-show"> Mobile Not Supported ⚠️</div>
+        <div id='first-btn-group' class="button-group">
+            <button class="game-btn" id="play-in-browser-btn">PLAY IN BROWSER</button>
+            <button class="game-btn" id="download-btn" disabled>DOWNLOAD</button>
+        </div>
+        <div class="announcement mobile-hide">
+            <div class="announcement-body">
+                <p class="glow-text">⚠️ Public Alpha Tests v.2. Are Opened! ⚠️</p>
+                <!-- <p class="subtle-text">Starts in late August or early September <br> <span style="color: orange;">⚠️Includes guest accounts cleanup ⚠️</span></p> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="about-section mobile-hide">
+        Maiu Online is a solo-developed mini MMORPG that began as a learning project and now is slowly evolving into a game with a growing community.<br><br>
+        Inspired by games like Diablo and MU Online, it brings a familiar style of play with plans for faster, more exciting combat in future updates.
+    </div>
+
+    <div class="info-container mobile-hide" style="margin-top: 75px;">
+        <div id="news-changelog">
+            <h2>📢 ANNOUNCEMENTS</h2>
+        </div>
     </div>
 
 </div>
