@@ -1,0 +1,58 @@
+.leaderboard {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Juvanze';
+    color: white;
+}
+
+.leaderboard h2 {
+    font-family: 'WinterLemon';
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 2px black;
+    color: yellow;
+    font-size: 3em;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.9);
+    width: auto;
+
+}
+
+/* Tabs */
+.tabs {
+    margin-bottom: 10px;
+}
+
+.tab {
+    padding: 6px 12px;
+    margin: 0 4px;
+    border: none;
+    cursor: pointer;
+    background: #333;
+    color: white;
+    border-radius: 6px;
+}
+
+.tab.active {
+    background: #666;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0,0,0,0.6);
+}
+
+th, td {
+    padding: 6px;
+}
+
+th {
+    background: rgba(0,0,0,0.8);
+}
+
+tr:nth-child(even) {
+    background: rgba(255,255,255,0.05);
+}

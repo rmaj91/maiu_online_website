@@ -1,0 +1,33 @@
+.news-container {
+    width: 60%;
+    margin: 20px auto;
+    font-family: 'Juvanze';
+}
+
+.news-entry {
+    color: rgb(232, 232, 232);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+}
+
+.news-entry h3 {
+    font-family: 'WinterLemon';
+    margin: 0;
+    text-shadow: 2px 2px 2px black;
+    color: yellow;
+}
+
+.news-date {
+    font-size: 1.0em;
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.news-entry p {
+    margin: 0;
+    line-height: 1.4;
+    font-size: 1.2em;
+}

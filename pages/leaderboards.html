@@ -1,0 +1,60 @@
+<div class="leaderboard">
+    <h2>🏆 TOP-15</h2>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab active" onclick="filterTable('all')">All</button>
+        <button class="tab" onclick="filterTable('eu')">Europe</button>
+        <button class="tab" onclick="filterTable('au')">Australia</button>
+    </div>
+
+    <!-- Table -->
+    <table id="leaderboard-table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Level</th>
+            <th>Gearscore</th>
+            <th>Server</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 15 entries -->
+        <tr data-server="eu"><td>1</td><td>Aetherion</td><td>Knight</td><td>60</td><td>1450</td><td>Europe</td></tr>
+        <tr data-server="au"><td>2</td><td>Blazefury</td><td>Mage</td><td>59</td><td>1402</td><td>Australia</td></tr>
+        <tr data-server="eu"><td>3</td><td>Shadowlyn</td><td>Rogue</td><td>58</td><td>1388</td><td>Europe</td></tr>
+        <tr data-server="eu"><td>4</td><td>Ironclad</td><td>Knight</td><td>58</td><td>1375</td><td>Europe</td></tr>
+        <tr data-server="au"><td>5</td><td>Stormbringer</td><td>Mage</td><td>57</td><td>1350</td><td>Australia</td></tr>
+        <tr data-server="eu"><td>6</td><td>Nightfang</td><td>Rogue</td><td>57</td><td>1330</td><td>Europe</td></tr>
+        <tr data-server="au"><td>7</td><td>Goldhelm</td><td>Knight</td><td>56</td><td>1310</td><td>Australia</td></tr>
+        <tr data-server="eu"><td>8</td><td>Frostveil</td><td>Mage</td><td>56</td><td>1295</td><td>Europe</td></tr>
+        <tr data-server="eu"><td>9</td><td>Silentedge</td><td>Rogue</td><td>55</td><td>1280</td><td>Europe</td></tr>
+        <tr data-server="au"><td>10</td><td>Emberlord</td><td>Mage</td><td>55</td><td>1265</td><td>Australia</td></tr>
+        <tr data-server="eu"><td>11</td><td>Steelguard</td><td>Knight</td><td>54</td><td>1250</td><td>Europe</td></tr>
+        <tr data-server="au"><td>12</td><td>Voidstep</td><td>Rogue</td><td>54</td><td>1235</td><td>Australia</td></tr>
+        <tr data-server="eu"><td>13</td><td>Lightbringer</td><td>Knight</td><td>53</td><td>1220</td><td>Europe</td></tr>
+        <tr data-server="eu"><td>14</td><td>Arcflare</td><td>Mage</td><td>53</td><td>1205</td><td>Europe</td></tr>
+        <tr data-server="au"><td>15</td><td>Duskrunner</td><td>Rogue</td><td>52</td><td>1190</td><td>Australia</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function filterTable(server) {
+        const rows = document.querySelectorAll("#leaderboard-table tbody tr");
+        const tabs = document.querySelectorAll(".tab");
+
+        tabs.forEach(t => t.classList.remove("active"));
+        event.target.classList.add("active");
+
+        rows.forEach(row => {
+            if (server === "all") {
+                row.style.display = "";
+            } else {
+                row.style.display = row.dataset.server === server ? "" : "none";
+            }
+        });
+    }
+</script>
