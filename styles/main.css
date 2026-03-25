@@ -273,11 +273,12 @@ button.game-btn:disabled {
     top: 0;
     left: 0;
     margin: 0.5vh;
+    border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.4);
     width: auto;
     color: #fefefe;
     padding: 10px;
-    border-radius: 10px;
+
     font-family: 'WinterLemon';
     font-size: 16px;
     backdrop-filter: blur(3px);
@@ -306,10 +307,12 @@ button.game-btn:disabled {
     position: absolute;
     top: 0;
     right: 0;
+    margin: 0.5vh;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
 
     color: #fefefe;
     padding: .5vh;
-    border-radius: 0 0 0 10px;
     /* border: 3px solid rgba(0, 0, 0, 0.4); */
     backdrop-filter: blur(4px);
     /* width: 250px; */
@@ -333,7 +336,7 @@ button.game-btn:disabled {
 
 #news-changelog {
     padding: 1vh;
-    background-color: rgba(0, 0, 0, 0.4);
+
     margin-bottom: 1vh;
     border-radius: 10px;
     /* width: 100%; */
