@@ -1,0 +1,62 @@
+body.play-mode #app {
+    position: fixed;
+    inset: 0; /* top:0; right:0; bottom:0; left:0 */
+    background: black;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.title {
+    font-family: 'WinterLemon';
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.loader {
+    width: 500px;
+    margin: auto;
+    text-align: center;
+    color: white;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #222;
+    margin-top: 10px;
+}
+
+#progress-fill {
+    height: 100%;
+    width: 0%;
+    background: lime;
+}
+
+#progress-text {
+    margin-top: 10px;
+}
+
+.tip {
+    margin-top: 20px;
+}
+
+body {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

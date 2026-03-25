@@ -1,0 +1,56 @@
+<div class="loader">
+    <div class="title">🚀 Loading Game...</div>
+
+    <div class="progress-bar">
+        <div id="progress-fill"></div>
+    </div>
+
+    <div id="progress-text">0%</div>
+    <div class="tip">💡 Tip: Upgrade your gear to increase power</div>
+</div>
+
+<link rel="stylesheet" href="/styles/play.css">
+
+<script type="module">
+    (async () => {
+        const fill = document.getElementById("progress-fill");
+        const text = document.getElementById("progress-text");
+
+        const res = await fetch("/pkg/your_project_bg.wasm");
+        const reader = res.body.getReader();
+        const total = res.headers.get("Content-Length");
+
+        let received = 0;
+        const chunks = [];
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            chunks.push(value);
+            received += value.length;
+
+            if (total) {
+                const percent = Math.round((received / total) * 100);
+                fill.style.width = percent + "%";
+                text.innerText = percent + "%";
+            }
+        }
+
+        const bytes = new Uint8Array(received);
+        let pos = 0;
+        for (let c of chunks) {
+            bytes.set(c, pos);
+            pos += c.length;
+        }
+
+        const wasm = await import("/pkg/your_project.js");
+        await wasm.default(bytes);
+
+        text.innerText = "Starting...";
+
+        wasm.main();
+
+        document.body.innerHTML = ""; // optional
+    })();
+</script>

@@ -1,9 +1,11 @@
 const app = document.getElementById("app");
+const layout = document.getElementById("layout"); // the wrapper we just added
 
 const routes = {
     "/": "main",
     "/leaderboards": "leaderboards",
-    "/news": "news"
+    "/news": "news",
+    "/play": "play" // NEW route
 };
 
 async function loadPage(name) {
@@ -13,6 +15,14 @@ async function loadPage(name) {
 
 function navigate(path, push = true) {
     const page = routes[path] || "main";
+
+    const isPlay = path === "/play";
+
+    // ✅ Step 2a: toggle layout visibility
+    layout.style.display = isPlay ? "none" : "";
+
+    // ✅ Step 2b: toggle fullscreen mode on #app
+    document.body.classList.toggle("play-mode", isPlay);
 
     loadPage(page);
 

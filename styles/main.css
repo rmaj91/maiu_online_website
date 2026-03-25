@@ -334,6 +334,7 @@ button.game-btn:disabled {
     display: grid;
     grid-template-columns: 150px 1fr; /* label | value */
     align-items: center;
+    margin-bottom: 4px;
 }
 
 
