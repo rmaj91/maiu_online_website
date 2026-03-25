@@ -330,7 +330,11 @@ button.game-btn:disabled {
     font-size: 2vh;
 }
 
-
+.server-status-data-row {
+    display: grid;
+    grid-template-columns: 150px 1fr; /* label | value */
+    align-items: center;
+}
 
 
 
