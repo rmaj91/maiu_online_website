@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('/main_page.jpg') center/cover no-repeat;
+    color: white;
+    overflow: hidden;
+}
+
+#app {
+    position: absolute;
+    top: 64px;
+    width: 100%;
+    height: calc(100% - 64px);
+}
