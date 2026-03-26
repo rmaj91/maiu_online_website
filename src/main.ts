@@ -1,5 +1,18 @@
 console.log('SCRIPT IS WORKING')
 
+const servers = [
+    { id: "europe-status", base: "https://api-eu.maiu-online:3000" },
+    { id: "australia-status", base: "https://api-au.maiu-online.com:3000" }
+];
+
+
+
+//@ts-ignore
+if (import.meta.env.MODE === 'dev') {
+    servers.push({ id: "localhost-status", base: "http://localhost:3000" });
+}
+
+
 function updateVisibility() {
     document.addEventListener("contextmenu", event => event.preventDefault());
 
@@ -26,11 +39,11 @@ window.addEventListener('DOMContentLoaded', updateVisibility);
 export function initServerStatusPage() {
     updateVisibility()
 
-    const servers = [
-        { id: "localhost-status", base: "http://localhost:3000" },
-        { id: "europe-status", base: "https://api-eu.maiu-online:3000" },
-        { id: "australia-status", base: "https://api-au.maiu-online.com:3000" }
-    ];
+    //@ts-ignore
+    if (import.meta.env.MODE !== 'dev') {
+        const devElements = document.querySelectorAll(".dev-only");
+        devElements.forEach(el => el.style.display = "none");
+    }
 
     async function fetchServerStatus(server: any) {
         try {
