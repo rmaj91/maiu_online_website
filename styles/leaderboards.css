@@ -33,10 +33,11 @@
     background: #333;
     color: white;
     border-radius: 6px;
+    font-family: 'WinterLemon';
 }
 
 .tab.active {
-    background: #666;
+    background: rgb(49, 156, 255);
 }
 
 /* Table */
@@ -48,10 +49,13 @@ table {
 }
 
 th, td {
+    font-family: 'WinterLemon';
     padding: 6px;
 }
 
 th {
+    color: yellow;
+    font-family: 'WinterLemon';
     background-color: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(3px);
 }
