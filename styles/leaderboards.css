@@ -16,8 +16,6 @@
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(3px);
-    width: auto;
-
 }
 
 /* Tabs */
@@ -49,18 +47,24 @@ table {
 }
 
 th, td {
-    font-family: 'WinterLemon';
     padding: 6px;
+    font-family: 'WinterLemon';
 }
 
 th {
     color: yellow;
-    font-family: 'WinterLemon';
     background-color: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(3px);
+    text-decoration: underline;
 }
 
 tr:nth-child(even) {
-    /* background-color: rgba(0, 0, 0, 0.75); */
     backdrop-filter: blur(3px);
 }
+
+th:nth-child(1), td:nth-child(1) { color: white; }      /* Number */
+th:nth-child(2), td:nth-child(2) { color: yellow; }     /* Name */
+th:nth-child(3), td:nth-child(3) { color: orange; }     /* Class */
+th:nth-child(4), td:nth-child(4) { color: limegreen; }  /* Level */
+th:nth-child(5), td:nth-child(5) { color: yellow; }     /* Gear Score */
+th:nth-child(6), td:nth-child(6) { color: white; }      /* Server */
