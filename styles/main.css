@@ -285,11 +285,16 @@ button.game-btn:disabled {
 }
 
 .server-status-data-row {
+    display: grid;
+    grid-template-columns: 15vh 1fr; /* label | value */
+    align-items: center;
+    margin-bottom: 4px;
     font-size: max(1.5vh, 13px);
     width: 100%;
     white-space: nowrap;
     /* width: 200px; */
 }
+
 
 .server-status-data-row .value {
     text-shadow: 2px 2px 2px black;
@@ -330,12 +335,7 @@ button.game-btn:disabled {
     font-size: 2vh;
 }
 
-.server-status-data-row {
-    display: grid;
-    grid-template-columns: 150px 1fr; /* label | value */
-    align-items: center;
-    margin-bottom: 4px;
-}
+
 
 
 
