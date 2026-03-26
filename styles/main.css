@@ -274,27 +274,27 @@ button.game-btn:disabled {
     left: 0;
     margin: 0.5vh;
     border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(3px);
     width: auto;
     color: #fefefe;
     padding: 10px;
 
     font-family: 'WinterLemon';
-    font-size: 16px;
-    backdrop-filter: blur(3px);
+    font-size: 24px;
+    
 }
 
 .server-status-data-row {
     display: grid;
-    grid-template-columns: 15vh 1fr; /* label | value */
+    grid-template-columns: 170px 1fr; /* label | value */
     align-items: center;
     margin-bottom: 4px;
-    font-size: max(1.5vh, 13px);
+    font-size: max(1.7vh, 18px);
     width: 100%;
     white-space: nowrap;
     /* width: 200px; */
 }
-
 
 .server-status-data-row .value {
     text-shadow: 2px 2px 2px black;
@@ -307,66 +307,34 @@ button.game-btn:disabled {
     color: yellow;
 }
 
-.info-container {
-    /* width: max(20vw); */
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0.5vh;
+.announcement {
+    margin-top: 2vh;
+    border: 1px solid rgba(0, 255, 200, 0.3);
     border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
-
-    color: #fefefe;
-    padding: .5vh;
-    /* border: 3px solid rgba(0, 0, 0, 0.4); */
-    backdrop-filter: blur(4px);
-    /* width: 250px; */
-}
-
-.info-container h2 {
     padding: 0.5vh;
-    margin: 0;
+    background: rgba(10, 10, 10, 0.7);
+    box-shadow: 0 0 12px rgba(0, 255, 200, 0.2);
     text-align: center;
-    /* margin-top: 0px; */
-    /* margin-bottom: 0px; */
-    font-family: 'WinterLemon';
-    color: yellow;
-    text-shadow: 2px 2px 2px black;
-    font-size: 2vh;
+    max-width: 600px;
+    /* font-family: 'Orbitron', sans-serif; */
+    color: #cfffff;
+    animation: flickerGlow 2s infinite;
 }
 
+.announcement-body .glow-text {
+    font-size: max(2vh, 15px);
+    color: #ffffff;
+    text-shadow: 0 0 8px red;
+    /* margin: 5px 0; */
+}
 
-
-
-
-#news-changelog {
-    padding: 1vh;
-
+.announcement h2 {
     margin-bottom: 1vh;
     border-radius: 10px;
     /* width: 100%; */
     /* padding-left: 0%; */
+    font-family: 'WinterLemon';
     color: yellow;
     text-decoration: underline;
-    font-size: 1.5em
-}
-
-.changelog-entry {
-    font-family: 'Juvanze';
-    font-size: max(1.5vh, 10px);
-}
-
-.changelog-entry ul {
-    padding-left: 2vh;
-    list-style: none;
-    margin-top: 5px;
-}
-
-.changelog-entry h4 {
-    font-size: 1.6vh;
-    font-family: 'WinterLemon';
-    text-shadow: 2px 2px 2px black;
-    /* text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); */
-    margin-bottom: 5px;
-    margin-top: 5px;
+    font-size: 1.5em;
 }
