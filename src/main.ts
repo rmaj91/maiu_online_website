@@ -26,7 +26,7 @@ window.addEventListener('DOMContentLoaded', updateVisibility);
 export function initServerStatusPage() {
 
     const servers = [
-        { id: "localhost-status", base: "http://127.0.0.1:3000" },
+        { id: "localhost-status", base: "http://localhost:3000" },
         { id: "europe-status", base: "https://eu.yourapi.com" },
         { id: "australia-status", base: "https://au.yourapi.com" }
     ];
@@ -39,7 +39,7 @@ export function initServerStatusPage() {
             const el = document.getElementById(server.id);
             if (!el) return; // page might have changed
 
-            if (data.status === "online") {
+            if (data.status === "Online") {
                 el.textContent = `🟢 ONLINE (${data.in_game})`;
                 el.style.color = "#35c728";
             } else {
