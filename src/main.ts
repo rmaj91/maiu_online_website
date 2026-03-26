@@ -1,15 +1,15 @@
 console.log('SCRIPT IS WORKING')
 
-const servers = [
-    { id: "europe-status", base: "https://api-eu.maiu-online:3000" },
-    { id: "australia-status", base: "https://api-au.maiu-online.com:3000" }
+export const servers = [
+    { id: "eu", name: "Europe", base: "https://api-eu.maiu-online:3000" },
+    { id: "au", name: "Australia", base: "https://api-au.maiu-online.com:3000" }
 ];
 
 
 
 //@ts-ignore
 if (import.meta.env.MODE === 'dev') {
-    servers.push({ id: "localhost-status", base: "http://localhost:3000" });
+    servers.push({ id: "local", name:"Local", base: "http://localhost:3000" });
 }
 
 
@@ -50,7 +50,7 @@ export function initServerStatusPage() {
             const res = await fetch(`${server.base}/server-status`);
             const data = await res.json();
 
-            const el = document.getElementById(server.id);
+            const el = document.getElementById(server.id + '-status');
             if (!el) return; // page might have changed
 
             if (data.status === "Online") {
