@@ -32,6 +32,7 @@
     color: white;
     border-radius: 6px;
     font-family: 'WinterLemon';
+    font-size: 1.5em;
 }
 
 .tab.active {
@@ -68,3 +69,28 @@ th:nth-child(3), td:nth-child(3) { color: orange; }     /* Class */
 th:nth-child(4), td:nth-child(4) { color: limegreen; }  /* Level */
 th:nth-child(5), td:nth-child(5) { color: yellow; }     /* Gear Score */
 th:nth-child(6), td:nth-child(6) { color: white; }      /* Server */
+
+
+#leaderboard-status {
+    margin-top: 1vh;
+    border: 1px solid rgba(255, 200, 0, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+    background: rgba(10, 10, 10, 0.8);
+    text-align: center;
+    max-width: 600px;
+    color: red;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'WinterLemon';
+    font-size: 20px;
+
+    /* Glow / shadow for visibility */
+    text-shadow: 
+        0 0 4px #ffecb3,
+        0 0 8px #ffd700,
+        0 0 12px #ff9900;
+    box-shadow: 0 0 12px #ffd700, 0 0 24px #ff9900;
+}

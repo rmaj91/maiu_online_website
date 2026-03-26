@@ -1,37 +1,34 @@
 import { servers } from "./main.js";
 
 const MAX_ROWS = 15;
-const leaderboardBody = document.getElementById("leaderboard-body");
-const tabsContainer = document.getElementById("tabs");
-let allData = {}; // store fetched data per server
-let combinedData = []; // for "All" tab
 
-// === UTILS ===
-async function fetchLeaderboard(server) {
-    try {
-        const res = await fetch(`${server.base}/ranking`);
-        const json = await res.json();
+let allData = {};
+let combinedData = [];
 
-        const entries = Array.isArray(json.entries) ? json.entries : [];
+async function waitForElement(selector, timeout = 3000) {
+    return new Promise((resolve, reject) => {
+        const el = document.querySelector(selector);
+        if (el) return resolve(el);
 
-        return entries.map(d => ({
-            ...d,
-            server: server.name,
-            serverId: server.id
-        }));
-    } catch (err) {
-        console.error(`Failed to fetch leaderboard from ${server.name}:`, err);
-        return [];
-    }
+        const observer = new MutationObserver(() => {
+            const el = document.querySelector(selector);
+            if (el) {
+                observer.disconnect();
+                resolve(el);
+            }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+        setTimeout(() => {
+            observer.disconnect();
+            reject(`Element ${selector} not found`);
+        }, timeout);
+    });
 }
 
-function renderTable(data) {
-    const leaderboardBody = document.getElementById("leaderboard-body");
-    if (!leaderboardBody) {
-        console.warn("Leaderboard table body not found yet!");
-        return;
-    }
 
+async function renderTable(data) {
+    const leaderboardBody = await waitForElement("#leaderboard-body");
     leaderboardBody.innerHTML = "";
     data.slice(0, MAX_ROWS).forEach((row, idx) => {
         const tr = document.createElement("tr");
@@ -54,52 +51,88 @@ function filterTable(serverId) {
         renderTable(allData[serverId] || []);
     }
 
-    // Update active tab class
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     document.querySelector(`.tab[data-server="${serverId}"]`)?.classList.add("active");
 }
+async function fetchLeaderboard(server) {
+  try {
+    const res = await fetch(`${server.base}/ranking`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    if (!Array.isArray(json.entries)) throw new Error("Invalid data format");
+    return json.entries.map(d => ({ ...d, server: server.name, serverId: server.id }));
+  } catch (err) {
+    console.error(`Failed to fetch leaderboard from ${server.name}:`, err);
+    // Throw to notify initLeaderboardPage
+    throw { server: server.name, error: err };
+  }
+}
 
-// === INIT ===
 export async function initLeaderboardPage() {
-    const leaderboardBody = document.getElementById("leaderboard-body");
-    const tabsContainer = document.getElementById("tabs");
+  const statusEl = await waitForElement("#leaderboard-status");
+  statusEl.textContent = "Loading leaderboard…";
 
-    if (!leaderboardBody || !tabsContainer) {
-        console.warn("Leaderboard elements not found yet!");
-        return;
-    }
+  const tabsContainer = await waitForElement("#tabs");
 
+  // Build tabs
+  const allTab = document.createElement("button");
+  allTab.className = "tab active";
+  allTab.textContent = "All";
+  allTab.dataset.server = "all";
+  allTab.onclick = () => filterTable("all");
+  tabsContainer.appendChild(allTab);
 
-    // Build tabs
-    const allTab = document.createElement("button");
-    allTab.className = "tab active";
-    allTab.textContent = "All";
-    allTab.dataset.server = "all";
-    allTab.onclick = () => filterTable("all");
-    tabsContainer.appendChild(allTab);
+  servers.forEach(s => {
+    const btn = document.createElement("button");
+    btn.className = "tab";
+    btn.textContent = s.name;
+    btn.dataset.server = s.id;
+    btn.onclick = () => filterTable(s.id);
+    tabsContainer.appendChild(btn);
+  });
 
-    servers.forEach(s => {
-        const btn = document.createElement("button");
-        btn.className = "tab";
-        btn.textContent = s.name;
-        btn.dataset.server = s.id;
-        btn.onclick = () => filterTable(s.id);
-        tabsContainer.appendChild(btn);
+  // Fetch all servers in parallel
+  try {
+    const results = await Promise.all(
+      servers.map(s => fetchLeaderboard(s).catch(err => err)) // catch individual errors
+    );
+
+    let failedServers = [];
+    results.forEach((res, idx) => {
+      if (res.error) {
+        allData[servers[idx].id] = [];
+        failedServers.push(servers[idx].name);
+      } else {
+        allData[servers[idx].id] = res;
+      }
     });
 
-    // Fetch all servers in parallel
-    const promises = servers.map(s => fetchLeaderboard(s));
-    const results = await Promise.all(promises);
-
-    servers.forEach((s, idx) => {
-        allData[s.id] = results[idx];
-    });
-
-    // Build combined "all" data
+    // Combined "All" tab
     combinedData = Object.values(allData).flat()
-        .sort((a, b) => b.level - a.level || b.gear_score - a.gear_score)
-        .slice(0, MAX_ROWS);
+      .sort((a, b) => b.level - a.level || b.gear_score - a.gear_score)
+      .slice(0, MAX_ROWS);
 
-    // Render default
     filterTable("all");
+
+const statusEl = await waitForElement("#leaderboard-status");
+
+// Loading
+statusEl.textContent = "Loading leaderboard…";
+statusEl.classList.remove("warning");
+statusEl.classList.add("loading");
+
+// After fetch
+if (failedServers.length > 0) {
+    statusEl.textContent = `⚠️ Failed to load leaderboard for: ${failedServers.join(", ")} ⚠️`;
+    statusEl.classList.remove("loading");
+    statusEl.classList.add("warning");
+} else {
+    statusEl.textContent = "";
+    statusEl.classList.remove("loading", "warning");
+}
+
+  } catch (err) {
+    console.error(err);
+    statusEl.textContent = "Failed to load leaderboard.";
+  }
 }
