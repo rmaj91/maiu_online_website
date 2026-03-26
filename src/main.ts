@@ -27,8 +27,8 @@ export function initServerStatusPage() {
 
     const servers = [
         { id: "localhost-status", base: "http://localhost:3000" },
-        { id: "europe-status", base: "https://eu.yourapi.com" },
-        { id: "australia-status", base: "https://au.yourapi.com" }
+        { id: "europe-status", base: "https://api-eu.maiu-online:3000" },
+        { id: "australia-status", base: "https://api-au.maiu-online.com:3000" }
     ];
 
     async function fetchServerStatus(server: any) {
