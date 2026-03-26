@@ -61,13 +61,13 @@ function filterTable(serverId) {
 
 // === INIT ===
 export async function initLeaderboardPage() {
-  const leaderboardBody = document.getElementById("leaderboard-body");
-  const tabsContainer = document.getElementById("tabs");
+    const leaderboardBody = document.getElementById("leaderboard-body");
+    const tabsContainer = document.getElementById("tabs");
 
-  if (!leaderboardBody || !tabsContainer) {
-    console.warn("Leaderboard elements not found yet!");
-    return;
-  }
+    if (!leaderboardBody || !tabsContainer) {
+        console.warn("Leaderboard elements not found yet!");
+        return;
+    }
 
 
     // Build tabs
