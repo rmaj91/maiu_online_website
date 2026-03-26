@@ -24,6 +24,7 @@ window.addEventListener('DOMContentLoaded', updateVisibility);
 
 
 export function initServerStatusPage() {
+    updateVisibility()
 
     const servers = [
         { id: "localhost-status", base: "http://localhost:3000" },
