@@ -46,11 +46,12 @@ export function initServerStatusPage() {
     }
 
     async function fetchServerStatus(server: any) {
+        const element_id = server.id + '-status'
         try {
             const res = await fetch(`${server.base}/server-status`);
             const data = await res.json();
 
-            const el = document.getElementById(server.id + '-status');
+            const el = document.getElementById(element_id);
             if (!el) return; // page might have changed
 
             if (data.status === "Online") {
@@ -61,7 +62,7 @@ export function initServerStatusPage() {
                 el.style.color = "crimson";
             }
         } catch {
-            const el = document.getElementById(server.id);
+            const el = document.getElementById(element_id);
             if (!el) return;
 
             el.textContent = "🔴 OFFLINE";
