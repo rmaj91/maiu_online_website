@@ -59,3 +59,9 @@ window.addEventListener("DOMContentLoaded", () => {
     setupNav();
     navigate(window.location.pathname || "/", false);
 });
+
+// reload /play to /
+const isReload = performance.getEntriesByType("navigation")[0]?.type === "reload";
+if (isReload && window.location.pathname === "/play") {
+    history.replaceState({}, "", "/");
+}
