@@ -1,4 +1,5 @@
 import { initServerStatusPage } from "./main.js";
+import { initLeaderboardPage } from "./main.js";
 
 const app = document.getElementById("app");
 const layout = document.getElementById("layout"); // the wrapper we just added
@@ -36,6 +37,8 @@ async function navigate(path, push = true) {
     // ✅ run page-specific init ONLY for "/"
     if (path === "/") {
         cleanup = initServerStatusPage();
+    } else if (path === "/leaderboards") {
+        initLeaderboardPage()
     }
 
     if (push) {

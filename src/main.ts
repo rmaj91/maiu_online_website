@@ -69,3 +69,23 @@ export function initServerStatusPage() {
     // cleanup when leaving page
     return () => clearInterval(interval);
 }
+
+export function initLeaderboardPage() {
+
+}
+
+export function filterTable(server) {
+    const rows = document.querySelectorAll("#leaderboard-table tbody tr");
+    const tabs = document.querySelectorAll(".tab");
+
+    tabs.forEach(t => t.classList.remove("active"));
+    event.target.classList.add("active");
+
+    rows.forEach(row => {
+        if (server === "all") {
+            row.style.display = "";
+        } else {
+            row.style.display = row.dataset.server === server ? "" : "none";
+        }
+    });
+}
