@@ -1,5 +1,6 @@
 import { initServerStatusPage } from "./main.js";
 import { initLeaderboardPage } from "./leaderboard.js";
+import { initPlayPage } from "./play.js";
 
 const app = document.getElementById("app");
 const layout = document.getElementById("layout"); // the wrapper we just added
@@ -39,6 +40,8 @@ async function navigate(path, push = true) {
         cleanup = initServerStatusPage();
     } else if (path === "/leaderboards") {
         initLeaderboardPage()
+    } else if (path === "/play") {
+        initPlayPage()
     }
 
     if (push) {
