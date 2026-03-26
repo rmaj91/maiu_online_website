@@ -1,3 +1,5 @@
+import { initServerStatusPage } from "./main.js";
+
 const app = document.getElementById("app");
 const layout = document.getElementById("layout"); // the wrapper we just added
 
@@ -13,18 +15,28 @@ async function loadPage(name) {
     app.innerHTML = await res.text();
 }
 
-function navigate(path, push = true) {
-    const page = routes[path] || "main";
+let cleanup = null;
+async function navigate(path, push = true) {
+    // 🔥 cleanup previous page (important)
+    if (cleanup) {
+        cleanup();
+        cleanup = null;
+    }
 
+    const page = routes[path] || "main";
     const isPlay = path === "/play";
 
-    // ✅ Step 2a: toggle layout visibility
+    // layout handling
     layout.style.display = isPlay ? "none" : "";
-
-    // ✅ Step 2b: toggle fullscreen mode on #app
     document.body.classList.toggle("play-mode", isPlay);
 
-    loadPage(page);
+    // ✅ wait for HTML to load
+    await loadPage(page);
+
+    // ✅ run page-specific init ONLY for "/"
+    if (path === "/") {
+        cleanup = initServerStatusPage();
+    }
 
     if (push) {
         history.pushState({ page }, "", path);
